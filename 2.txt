@@ -1,0 +1,164 @@
+using System;
+using System.Collections.Generic;
+
+namespace CSharpAssignment
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+        
+            int quantity = 7;
+            string itemName = "Widget";
+            for (int i = 1; i <= 5; i++)
+            {
+                Console.WriteLine($"Item: {itemName}, Loop index: {i}");
+            }
+
+        
+            Employee employee = new Employee("Alice", "50000");
+            Console.WriteLine(employee.DisplayInfo());
+
+          
+            Fruit apple = new Fruit();
+            apple.WeightInKg = 2;
+            apple.PriceOfOneKg = 3;
+            Console.WriteLine($"Total price of fruits: {apple.CalculateTotalPrice()}");
+
+            Electronics laptop = new Electronics();
+            laptop.Quantity = 1;
+            laptop.OneUnitPrice = 1000;
+            Console.WriteLine($"Total price of electronics: {laptop.CalculateTotalPrice()}");
+
+       
+            Bird sparrow = new Sparrow();
+            Bird pigeon = new Pigeon();
+            Console.WriteLine(sparrow.MakeSound());
+            Console.WriteLine(pigeon.MakeSound());
+
+            
+            MyCollection<string> myCollection = new MyCollection<string>();
+            myCollection.AddItem("First Item");
+            myCollection.AddItem("Second Item");
+            myCollection.AddItem("Third Item");
+            Console.WriteLine($"Item at index 1: {myCollection.GetItem(1)}");
+        }
+    }
+
+    
+    public class Employee
+    {
+        private string _employeeName;
+        public string Salary { get; set; }
+
+        public Employee(string name, string salary)
+        {
+            _employeeName = name;
+            Salary = salary;
+        }
+
+        public string DisplayInfo()
+        {
+            return $"Hi, I'm {_employeeName} and I earn {Salary} per year";
+        }
+    }
+
+ 
+    public class Item
+    {
+        protected double Price;
+
+        public Item()
+        {
+            Price = 0;
+        }
+    }
+
+    public class Fruit : Item
+    {
+        private double _weightInKg;
+        private double _priceOfOneKg;
+
+        public double WeightInKg
+        {
+            get { return _weightInKg; }
+            set { _weightInKg = value; }
+        }
+
+        public double PriceOfOneKg
+        {
+            get { return _priceOfOneKg; }
+            set { _priceOfOneKg = value; }
+        }
+
+        public double CalculateTotalPrice()
+        {
+            Price = _weightInKg * _priceOfOneKg;
+            return Price;
+        }
+    }
+
+    public class Electronics : Item
+    {
+        private int _quantity;
+        private double _oneUnitPrice;
+
+        public int Quantity
+        {
+            get { return _quantity; }
+            set { _quantity = value; }
+        }
+
+        public double OneUnitPrice
+        {
+            get { return _oneUnitPrice; }
+            set { _oneUnitPrice = value; }
+        }
+
+        public double CalculateTotalPrice()
+        {
+            Price = _quantity * _oneUnitPrice;
+            return Price;
+        }
+    }
+
+    
+    public abstract class Bird
+    {
+        public abstract string MakeSound();
+    }
+
+    public class Sparrow : Bird
+    {
+        public override string MakeSound()
+        {
+            return "Chirp";
+        }
+    }
+
+    public class Pigeon : Bird
+    {
+        public override string MakeSound()
+        {
+            return "Coo";
+        }
+    }
+
+    
+    public class MyCollection<T>
+    {
+        private List<T> list = new List<T>();
+
+        public void AddItem(T item)
+        {
+            list.Add(item);
+        }
+
+        public T GetItem(int index)
+        {
+            if (index < 0 || index >= list.Count)
+                throw new IndexOutOfRangeException("Index out of range");
+            return list[index];
+        }
+    }
+}

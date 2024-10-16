@@ -1,0 +1,157 @@
+using System;
+using System.Collections.Generic;
+
+namespace CSharpAssignment
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            
+            int temperature = 22;
+            string city = "Tbilisi";
+            for (int i = 1; i <= 7; i++)
+            {
+                double fahrenheit = (temperature * 9.0 / 5.0) + 32;
+                Console.WriteLine($"City: {city}, Day: {i}, Temperature: {fahrenheit} °F");
+            }
+
+          
+            Student student = new Student("Giorgi", "A");
+            Console.WriteLine(student.Greeting());
+
+           
+            Triangle triangle = new Triangle();
+            triangle.Base = 5;
+            triangle.Height = 10;
+            Console.WriteLine($"Triangle area: {triangle.CalculateArea()}");
+
+            Square square = new Square();
+            square.SideLength = 4;
+            Console.WriteLine($"Square area: {square.CalculateArea()}");
+
+           
+            Animal dog = new Dog();
+            Animal cat = new Cat();
+            Console.WriteLine(dog.MakeSound());
+            Console.WriteLine(cat.MakeSound());
+
+         
+            MyCollection<string> myCollection = new MyCollection<string>();
+            myCollection.AddItem("First Element");
+            myCollection.AddItem("Second Element");
+            myCollection.AddItem("Third Element");
+            Console.WriteLine($"Item at index 1: {myCollection.GetItem(1)}");
+        }
+    }
+
+    
+    public class Student
+    {
+        private string _studentName;
+        public string Grade { get; set; }
+
+        public Student(string name, string grade)
+        {
+            _studentName = name;
+            Grade = grade;
+        }
+
+        public string Greeting()
+        {
+            return $"Hi, I'm {_studentName} and I'm in grade {Grade}.";
+        }
+    }
+
+
+    public class Figure
+    {
+        protected double Area;
+
+        public Figure()
+        {
+            Area = 0;
+        }
+    }
+
+    public class Triangle : Figure
+    {
+        private double _base;
+        private double _height;
+
+        public double Base
+        {
+            get { return _base; }
+            set { _base = value; }
+        }
+
+        public double Height
+        {
+            get { return _height; }
+            set { _height = value; }
+        }
+
+        public double CalculateArea()
+        {
+            Area = (_base * _height) / 2;
+            return Area;
+        }
+    }
+
+    public class Square : Figure
+    {
+        private double _sideLength;
+
+        public double SideLength
+        {
+            get { return _sideLength; }
+            set { _sideLength = value; }
+        }
+
+        public double CalculateArea()
+        {
+            Area = _sideLength * _sideLength;
+            return Area;
+        }
+    }
+
+    
+    public abstract class Animal
+    {
+        public abstract string MakeSound();
+    }
+
+    public class Dog : Animal
+    {
+        public override string MakeSound()
+        {
+            return "Woof";
+        }
+    }
+
+    public class Cat : Animal
+    {
+        public override string MakeSound()
+        {
+            return "Meow";
+        }
+    }
+
+    
+    public class MyCollection<T>
+    {
+        private List<T> list = new List<T>();
+
+        public void AddItem(T item)
+        {
+            list.Add(item);
+        }
+
+        public T GetItem(int index)
+        {
+            if (index < 0 || index >= list.Count)
+                throw new IndexOutOfRangeException("Index out of range");
+            return list[index];
+        }
+    }
+}

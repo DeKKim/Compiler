@@ -1,0 +1,157 @@
+using System;
+using System.Collections.Generic;
+
+namespace CSharpAssignment
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+          
+            int age = 20; 
+            string name = "Giorgi"; 
+            for (int i = 1; i <= 10; i++)
+            {
+                Console.WriteLine($"{name} {i}");
+            }
+
+            
+            Person person = new Person(20, "Giorgi"); 
+            Console.WriteLine(person.Introduction());
+
+          
+            Rectangle rect = new Rectangle();
+            rect.Length = 5;
+            rect.Width = 10;
+            Console.WriteLine($"Rectangle area: {rect.CalculateArea()}");
+
+            Circle circle = new Circle();
+            circle.Radius = 7;
+            Console.WriteLine($"Circle area: {circle.CalculateArea()}");
+
+        
+            Vehicle car = new Car();
+            Vehicle bicycle = new Bicycle();
+            Console.WriteLine(car.StartEngine());
+            Console.WriteLine(bicycle.StartEngine());
+
+           
+            MyList<int> myList = new MyList<int>();
+            myList.Add(10);
+            myList.Add(20);
+            myList.Add(30);
+            Console.WriteLine($"Element at index 1: {myList.Get(1)}");
+        }
+    }
+
+    
+    public class Person
+    {
+        private int age;
+        public string Name { get; set; }
+
+        public Person(int age, string name)
+        {
+            this.age = age;
+            this.Name = name;
+        }
+
+        public string Introduction()
+        {
+            return $"Hi, I'm {Name} and I'm {age} years old";
+        }
+    }
+
+  
+    public class Shape
+    {
+        protected double Area;
+
+        public Shape()
+        {
+            Area = 0;
+        }
+    }
+
+    public class Rectangle : Shape
+    {
+        private double _length;
+        private double _width;
+
+        public double Length
+        {
+            get { return _length; }
+            set { _length = value; }
+        }
+
+        public double Width
+        {
+            get { return _width; }
+            set { _width = value; }
+        }
+
+        public double CalculateArea()
+        {
+            Area = _length * _width;
+            return Area;
+        }
+    }
+
+    public class Circle : Shape
+    {
+        private double _radius;
+
+        public double Radius
+        {
+            get { return _radius; }
+            set { _radius = value; }
+        }
+
+        public double CalculateArea()
+        {
+            Area = Math.PI * _radius * _radius;
+            return Area;
+        }
+    }
+
+ 
+    public abstract class Vehicle
+    {
+        public abstract string StartEngine();
+    }
+
+    public class Car : Vehicle
+    {
+        public override string StartEngine()
+        {
+            return "Car engine started";
+        }
+    }
+
+    public class Bicycle : Vehicle
+    {
+        public override string StartEngine()
+        {
+            return "Pedaling the bicycle";
+        }
+    }
+
+ 
+    public class MyList<T>
+    {
+        private List<T> list = new List<T>();
+
+        public void Add(T item)
+        {
+            list.Add(item);
+        }
+
+        public T Get(int index)
+        {
+            if (index < 0 || index >= list.Count)
+                throw new IndexOutOfRangeException("Index out of range");
+
+            return list[index];
+        }
+    }
+}
